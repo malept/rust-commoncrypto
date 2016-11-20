@@ -129,20 +129,63 @@ extern "C" {
 #[cfg(test)]
 mod test {
     use hex::ToHex;
-	use super::*;
 
     const TO_HASH: &'static str = "The quick brown fox jumps over the lazy dog";
     const TO_HASH_MD5: &'static str = "9e107d9d372bb6826bd81d3542a419d6";
+    const TO_HASH_SHA1: &'static str = "2fd4e1c67a2d28fced849ee1bb76e7391b93eb12";
+    const TO_HASH_SHA256: &'static str = "d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592";
+    const TO_HASH_SHA512: &'static str = "07e547d9586f6a73f73fbac0435ed76951218fb7d0c8d788a309d785436bbb642e93a252a954f23912547d1e8a3b5ed6e1bfd7097821233fa0538f3db854fee6";
 
-	#[test]
-    fn md5_hash () {
-        let mut ctx = CC_MD5_CTX::default();
-        let mut md = [0u8; MD5_DIGEST_LENGTH];
-        unsafe {
-            assert_eq!(CC_MD5_Init(&mut ctx), 1);
-            assert_eq!(CC_MD5_Update(&mut ctx, TO_HASH.as_ptr(), TO_HASH.len()), 1);
-            assert_eq!(CC_MD5_Final(md.as_mut_ptr(), &mut ctx), 1);
+    macro_rules! test_hash {
+        (
+            $test_name: ident,
+            $ctx_ty: ident,
+            $digest_len: ident,
+            $init_func: ident,
+            $update_func: ident,
+            $final_func: ident,
+            $expected_hash: ident
+        ) => {
+            #[test]
+            fn $test_name() {
+                let mut ctx = super::$ctx_ty::default();
+                let mut md = [0u8; super::$digest_len];
+                unsafe {
+                    assert_eq!(super::$init_func(&mut ctx), 1);
+                    assert_eq!(super::$update_func(&mut ctx, TO_HASH.as_ptr(), TO_HASH.len()), 1);
+                    assert_eq!(super::$final_func(md.as_mut_ptr(), &mut ctx), 1);
+                }
+                assert_eq!(md.to_vec().to_hex(), $expected_hash);
+            }
         }
-        assert_eq!(md.to_vec().to_hex(), TO_HASH_MD5);
     }
+
+    test_hash!(md5_hash,
+               CC_MD5_CTX,
+               MD5_DIGEST_LENGTH,
+               CC_MD5_Init,
+               CC_MD5_Update,
+               CC_MD5_Final,
+               TO_HASH_MD5);
+    test_hash!(sha1_hash,
+               CC_SHA_CTX,
+               SHA1_DIGEST_LENGTH,
+               CC_SHA1_Init,
+               CC_SHA1_Update,
+               CC_SHA1_Final,
+               TO_HASH_SHA1);
+    test_hash!(sha256_hash,
+               CC_SHA256_CTX,
+               SHA256_DIGEST_LENGTH,
+               CC_SHA256_Init,
+               CC_SHA256_Update,
+               CC_SHA256_Final,
+               TO_HASH_SHA256);
+    test_hash!(sha512_hash,
+               CC_SHA512_CTX,
+               SHA512_DIGEST_LENGTH,
+               CC_SHA512_Init,
+               CC_SHA512_Update,
+               CC_SHA512_Final,
+               TO_HASH_SHA512);
 }
