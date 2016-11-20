@@ -1,0 +1,28 @@
+language: rust
+
+os:
+- osx
+
+cache: cargo
+
+rust:
+- nightly
+- beta
+- stable
+
+matrix:
+  allow_failures:
+  - rust: nightly
+
+before_script: ci/before_script.sh
+script: ci/script.sh
+after_success:
+- travis-cargo --only stable doc-upload
+- travis-cargo --only stable coveralls --no-sudo --verify --exclude-pattern=/test.rs
+
+env:
+  global:
+  - TRAVIS_CARGO_NIGHTLY_FEATURE='lint'
+  - PATH=$HOME/Library/Python/2.7/bin:$PATH
+  # encrypted github token for doc upload
+  - secure: euCXRgSy9cmwmYqigfnM9EQq839onxlWYfVsQf5mw8ERIrKYyVAP1Ca3YVc6IE4klLFDuJIiK7fWCIOAQwTYB5EEc8JigSTum70C4Vmb8U0Ms7L4V2eZ9u45UGR1nf3G2rU4Oo/FxctioAMG9T41J/3l86FgKJEWffQUJqHamknW8l05ZuIkp0qilpUZqTji9eZRX91NidCmMpvJYPBKru40Z7piOLtnpb/r/Ix/iqPCMste5US8KWKtwZoHcJC/Ofu95sN06aoGG37JGn9z4rICSG9v2NcRzMaQ3B4goTRWQ/8wgNh0mt+0MR213Ay7HTjjk8TKKsUB9mNFTyvVoWYAO5vC+LNZLzzogWF2IbhI6If/CcdpHw1Rs9wxs310YlzSPgU1ZON0gRVQj9AYHK436PIPwuBO+pmsAh9ap1ALOnICa5lBvNudNlTL8gOZcYM7EpglBgGsBoAONZWoKv0+Ymm4MFDgVwi8C5oEfz3sdievpfPpl42BWmHsPb99mqZaGxQ76pitTFOYATmgmli7IENq8s9tDur6j0OX6hTR4o41BWQLGTruQG8pexWQ5r3ZryxGjRXAP5xwEz+5zzkQp3RysmcSUCS/lKPPWt7VuRGPdlM49It7uyBD/sPe2fBesEMqvcK94QMNL/xyxkkMcTVnzqSpX81qwEYcJpY=
