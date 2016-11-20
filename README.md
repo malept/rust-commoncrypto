@@ -13,6 +13,8 @@ OS X or macOS
 Add `commoncrypto-sys` to your project's `Cargo.toml`. For more details, consult the
 [Cargo guide](http://doc.crates.io/guide.html#adding-dependencies-from-cratesio).
 
+## [Documentation](https://malept.github.io/commoncrypto-sys/)
+
 ## [Contributing](https://github.com/malept/commoncrypto-sys/blob/master/CONTRIBUTING.md)
 
 ## Legal
