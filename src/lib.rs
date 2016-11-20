@@ -26,7 +26,9 @@ extern crate libc;
 
 use libc::{c_int, c_uint, c_ulong, c_ulonglong};
 
+/// Total number of operations.
 const MD5_CBLOCK: usize = 64;
+/// Number of operations per round.
 const MD5_LBLOCK: usize = MD5_CBLOCK / 4;
 /// Number of bytes for an MD5 hash.
 pub const MD5_DIGEST_LENGTH: usize = 16;
