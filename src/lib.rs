@@ -26,15 +26,20 @@ extern crate libc;
 
 use libc::{c_int, c_uint, c_ulong, c_ulonglong};
 
-pub const MD5_CBLOCK: usize = 64;
-pub const MD5_LBLOCK: usize = MD5_CBLOCK / 4;
+const MD5_CBLOCK: usize = 64;
+const MD5_LBLOCK: usize = MD5_CBLOCK / 4;
+/// Number of bytes for an MD5 hash.
 pub const MD5_DIGEST_LENGTH: usize = 16;
 
-pub const SHA_LBLOCK: usize = 16;
+const SHA_LBLOCK: usize = 16;
+/// Number of bytes for an SHA1 hash.
 pub const SHA1_DIGEST_LENGTH: usize = 20;
+/// Number of bytes for an SHA256 hash.
 pub const SHA256_DIGEST_LENGTH: usize = 32;
+/// Number of bytes for an SHA512 hash.
 pub const SHA512_DIGEST_LENGTH: usize = 64;
 
+/// Struct used to generate MD5 hashes.
 #[allow(non_camel_case_types, non_snake_case)]
 #[derive(Clone, Debug, Default, PartialEq)]
 #[repr(C)]
@@ -49,6 +54,7 @@ pub struct CC_MD5_CTX {
     num: c_uint,
 }
 
+/// Struct used to generate SHA1 hashes.
 #[allow(non_camel_case_types, non_snake_case)]
 #[derive(Clone, Debug, Default, PartialEq)]
 #[repr(C)]
@@ -64,6 +70,7 @@ pub struct CC_SHA_CTX {
     num: c_uint,
 }
 
+/// Struct used to generate SHA256 hashes.
 #[allow(non_camel_case_types, non_snake_case)]
 #[derive(Clone, Debug, Default, PartialEq)]
 #[repr(C)]
@@ -76,6 +83,7 @@ pub struct CC_SHA256_CTX {
     md_len: c_uint,
 }
 
+/// Struct used to generate SHA512 hashes.
 #[allow(non_camel_case_types, non_snake_case)]
 #[derive(Clone, Debug, Default, PartialEq)]
 #[repr(C)]
@@ -89,16 +97,28 @@ pub struct CC_SHA512_CTX {
 }
 
 extern "C" {
+    /// Initializes MD5 hasher. See `man 3cc CC_MD5` for details.
     pub fn CC_MD5_Init(ctx: *mut CC_MD5_CTX) -> c_int;
+    /// Appends data to be hashed. See `man 3cc CC_MD5` for details.
     pub fn CC_MD5_Update(ctx: *mut CC_MD5_CTX, data: *const u8, n: usize) -> c_int;
+    /// Generates MD5 hash. See `man 3cc CC_MD5` for details.
     pub fn CC_MD5_Final(md: *mut u8, ctx: *mut CC_MD5_CTX) -> c_int;
+    /// Initializes SHA1 hasher. See `man 3cc CC_SHA1` for details.
     pub fn CC_SHA1_Init(ctx: *mut CC_SHA_CTX) -> c_int;
+    /// Appends data to be hashed. See `man 3cc CC_SHA1` for details.
     pub fn CC_SHA1_Update(ctx: *mut CC_SHA_CTX, data: *const u8, n: usize) -> c_int;
+    /// Generates SHA1 hash. See `man 3cc CC_SHA1` for details.
     pub fn CC_SHA1_Final(md: *mut u8, ctx: *mut CC_SHA_CTX) -> c_int;
+    /// Initializes SHA256 hasher. See `man 3cc CC_SHA256` for details.
     pub fn CC_SHA256_Init(ctx: *mut CC_SHA256_CTX) -> c_int;
+    /// Appends data to be hashed. See `man 3cc CC_SHA256` for details.
     pub fn CC_SHA256_Update(ctx: *mut CC_SHA256_CTX, data: *const u8, n: usize) -> c_int;
+    /// Generates SHA256 hash. See `man 3cc CC_SHA256` for details.
     pub fn CC_SHA256_Final(md: *mut u8, ctx: *mut CC_SHA256_CTX) -> c_int;
+    /// Initializes SHA512 hasher. See `man 3cc CC_SHA512` for details.
     pub fn CC_SHA512_Init(ctx: *mut CC_SHA512_CTX) -> c_int;
+    /// Appends data to be hashed. See `man 3cc CC_SHA512` for details.
     pub fn CC_SHA512_Update(ctx: *mut CC_SHA512_CTX, data: *const u8, n: usize) -> c_int;
+    /// Generates SHA512 hash. See `man 3cc CC_SHA512` for details.
     pub fn CC_SHA512_Final(md: *mut u8, ctx: *mut CC_SHA512_CTX) -> c_int;
 }
