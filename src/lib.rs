@@ -22,6 +22,7 @@
 
 #![warn(missing_docs)]
 
+extern crate hex;
 extern crate libc;
 
 use libc::{c_int, c_uint, c_ulong, c_ulonglong};
@@ -123,4 +124,25 @@ extern "C" {
     pub fn CC_SHA512_Update(ctx: *mut CC_SHA512_CTX, data: *const u8, n: usize) -> c_int;
     /// Generates SHA512 hash. See `man 3cc CC_SHA512` for details.
     pub fn CC_SHA512_Final(md: *mut u8, ctx: *mut CC_SHA512_CTX) -> c_int;
+}
+
+#[cfg(test)]
+mod test {
+    use hex::ToHex;
+	use super::*;
+
+    const TO_HASH: &'static str = "The quick brown fox jumps over the lazy dog";
+    const TO_HASH_MD5: &'static str = "9e107d9d372bb6826bd81d3542a419d6";
+
+	#[test]
+    fn md5_hash () {
+        let mut ctx = CC_MD5_CTX::default();
+        let mut md = [0u8; MD5_DIGEST_LENGTH];
+        unsafe {
+            assert_eq!(CC_MD5_Init(&mut ctx), 1);
+            assert_eq!(CC_MD5_Update(&mut ctx, TO_HASH.as_ptr(), TO_HASH.len()), 1);
+            assert_eq!(CC_MD5_Final(md.as_mut_ptr(), &mut ctx), 1);
+        }
+        assert_eq!(md.to_vec().to_hex(), TO_HASH_MD5);
+    }
 }
