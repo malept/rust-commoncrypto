@@ -175,6 +175,7 @@ extern "C" {
     pub fn CC_SHA512_Update(ctx: *mut CC_SHA512_CTX, data: *const u8, n: usize) -> c_int;
     /// Generates SHA512 hash. See `man 3cc CC_SHA` for details.
     pub fn CC_SHA512_Final(md: *mut u8, ctx: *mut CC_SHA512_CTX) -> c_int;
+    /// Generic digest hasher.
     pub fn CCDigest(algorithm: CCDigestAlgorithm,
                     data: *const u8,
                     length: usize,
