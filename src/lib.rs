@@ -75,7 +75,7 @@ pub struct CC_SHA_CTX {
     num: c_uint,
 }
 
-macro_rules! sha2_struct {
+macro_rules! cc_sha2_struct {
     ($ctx_name: ident, $ty: ty) => {
         /// Struct used to generate SHA2 hashes with the given bits.
         #[allow(non_camel_case_types, non_snake_case)]
@@ -89,8 +89,60 @@ macro_rules! sha2_struct {
     }
 }
 
-sha2_struct!(CC_SHA256_CTX, u32);
-sha2_struct!(CC_SHA512_CTX, u64);
+cc_sha2_struct!(CC_SHA256_CTX, u32);
+cc_sha2_struct!(CC_SHA512_CTX, u64);
+
+/// Digest algorithm used in `CCDigest*()` functions.
+#[repr(C)]
+pub enum CCDigestAlgorithm {
+    /// No digest algorithm
+    kCCDigestNone = 0,
+    /// MD2
+    kCCDigestMD2 = 1,
+    /// MD4
+    kCCDigestMD4 = 2,
+    /// MD5
+    kCCDigestMD5 = 3,
+    /// RIPEMD-128
+    kCCDigestRMD128 = 4,
+    /// RIPEMD-160
+    kCCDigestRMD160 = 5,
+    /// RIPEMD-256
+    kCCDigestRMD256 = 6,
+    /// RIPEMD-320
+    kCCDigestRMD320 = 7,
+    /// SHA1
+    kCCDigestSHA1 = 8,
+    /// SHA224
+    kCCDigestSHA224 = 9,
+    /// SHA256
+    kCCDigestSHA256 = 10,
+    /// SHA384
+    kCCDigestSHA384 = 11,
+    /// SHA512
+    kCCDigestSHA512 = 12,
+    /// Skein, 128 bit (Deprecated in iPhoneOS 6.0 and MacOSX10.9)
+    kCCDigestSkein128 = 13,
+    /// Skein, 160 bit (Deprecated in iPhoneOS 6.0 and MacOSX10.9)
+    kCCDigestSkein160 = 14,
+    /// Skein, 224 bit (Deprecated in iPhoneOS 6.0 and MacOSX10.9)
+    kCCDigestSkein224 = 16,
+    /// Skein, 256 bit (Deprecated in iPhoneOS 6.0 and MacOSX10.9)
+    kCCDigestSkein256 = 17,
+    /// Skein, 384 bit (Deprecated in iPhoneOS 6.0 and MacOSX10.9)
+    kCCDigestSkein384 = 18,
+    /// Skein, 512 bit (Deprecated in iPhoneOS 6.0 and MacOSX10.9)
+    kCCDigestSkein512 = 19,
+}
+
+const CC_DIGEST_SIZE: usize = 1032;
+
+/// Context used in `CCDigest*()` functions.
+#[allow(non_camel_case_types, non_snake_case)]
+#[repr(C)]
+pub struct CCDigestCtx {
+    context: [u8; CC_DIGEST_SIZE],
+}
 
 extern "C" {
     /// Initializes MD5 hasher. See `man 3cc CC_MD5` for details.
@@ -123,6 +175,11 @@ extern "C" {
     pub fn CC_SHA512_Update(ctx: *mut CC_SHA512_CTX, data: *const u8, n: usize) -> c_int;
     /// Generates SHA512 hash. See `man 3cc CC_SHA` for details.
     pub fn CC_SHA512_Final(md: *mut u8, ctx: *mut CC_SHA512_CTX) -> c_int;
+    pub fn CCDigest(algorithm: CCDigestAlgorithm,
+                    data: *const u8,
+                    length: usize,
+                    output: *mut u8)
+                    -> c_int;
 }
 
 #[cfg(test)]
@@ -136,7 +193,7 @@ mod test {
     const TO_HASH_SHA384: &'static str = "ca737f1014a48f4c0b6dd43cb177b0afd9e5169367544c494011e3317dbf9a509cb1e5dc1e85a941bbee3d7f2afbc9b1";
     const TO_HASH_SHA512: &'static str = "07e547d9586f6a73f73fbac0435ed76951218fb7d0c8d788a309d785436bbb642e93a252a954f23912547d1e8a3b5ed6e1bfd7097821233fa0538f3db854fee6";
 
-    macro_rules! test_hash {
+    macro_rules! test_cc_hash {
         (
             $test_name: ident,
             $ctx_ty: ident,
@@ -160,39 +217,78 @@ mod test {
         }
     }
 
-    test_hash!(md5_hash,
-               CC_MD5_CTX,
-               MD5_DIGEST_LENGTH,
-               CC_MD5_Init,
-               CC_MD5_Update,
-               CC_MD5_Final,
-               TO_HASH_MD5);
-    test_hash!(sha1_hash,
-               CC_SHA_CTX,
-               SHA1_DIGEST_LENGTH,
-               CC_SHA1_Init,
-               CC_SHA1_Update,
-               CC_SHA1_Final,
-               TO_HASH_SHA1);
-    test_hash!(sha256_hash,
-               CC_SHA256_CTX,
-               SHA256_DIGEST_LENGTH,
-               CC_SHA256_Init,
-               CC_SHA256_Update,
-               CC_SHA256_Final,
-               TO_HASH_SHA256);
-    test_hash!(sha384_hash,
-               CC_SHA512_CTX,
-               SHA384_DIGEST_LENGTH,
-               CC_SHA384_Init,
-               CC_SHA384_Update,
-               CC_SHA384_Final,
-               TO_HASH_SHA384);
-    test_hash!(sha512_hash,
-               CC_SHA512_CTX,
-               SHA512_DIGEST_LENGTH,
-               CC_SHA512_Init,
-               CC_SHA512_Update,
-               CC_SHA512_Final,
-               TO_HASH_SHA512);
+    macro_rules! test_ccdigest {
+        (
+            $test_name: ident,
+            $algorithm: ident,
+            $digest_len: ident,
+            $expected_hash: ident
+        ) => {
+            #[test]
+            fn $test_name() {
+                let mut md = [0u8; super::$digest_len];
+                unsafe {
+                    assert_eq!(super::CCDigest(super::CCDigestAlgorithm::$algorithm,
+                                               TO_HASH.as_ptr(),
+                                               TO_HASH.len(),
+                                               md.as_mut_ptr()), 0)
+                }
+                assert_eq!(md.to_vec().to_hex(), $expected_hash);
+            }
+        }
+    }
+
+    test_cc_hash!(md5_hash,
+                  CC_MD5_CTX,
+                  MD5_DIGEST_LENGTH,
+                  CC_MD5_Init,
+                  CC_MD5_Update,
+                  CC_MD5_Final,
+                  TO_HASH_MD5);
+    test_cc_hash!(sha1_hash,
+                  CC_SHA_CTX,
+                  SHA1_DIGEST_LENGTH,
+                  CC_SHA1_Init,
+                  CC_SHA1_Update,
+                  CC_SHA1_Final,
+                  TO_HASH_SHA1);
+    test_cc_hash!(sha256_hash,
+                  CC_SHA256_CTX,
+                  SHA256_DIGEST_LENGTH,
+                  CC_SHA256_Init,
+                  CC_SHA256_Update,
+                  CC_SHA256_Final,
+                  TO_HASH_SHA256);
+    test_cc_hash!(sha384_hash,
+                  CC_SHA512_CTX,
+                  SHA384_DIGEST_LENGTH,
+                  CC_SHA384_Init,
+                  CC_SHA384_Update,
+                  CC_SHA384_Final,
+                  TO_HASH_SHA384);
+    test_cc_hash!(sha512_hash,
+                  CC_SHA512_CTX,
+                  SHA512_DIGEST_LENGTH,
+                  CC_SHA512_Init,
+                  CC_SHA512_Update,
+                  CC_SHA512_Final,
+                  TO_HASH_SHA512);
+
+    test_ccdigest!(md5_ccdigest, kCCDigestMD5, MD5_DIGEST_LENGTH, TO_HASH_MD5);
+    test_ccdigest!(sha1_ccdigest,
+                   kCCDigestSHA1,
+                   SHA1_DIGEST_LENGTH,
+                   TO_HASH_SHA1);
+    test_ccdigest!(sha256_ccdigest,
+                   kCCDigestSHA256,
+                   SHA256_DIGEST_LENGTH,
+                   TO_HASH_SHA256);
+    test_ccdigest!(sha384_ccdigest,
+                   kCCDigestSHA384,
+                   SHA384_DIGEST_LENGTH,
+                   TO_HASH_SHA384);
+    test_ccdigest!(sha512_ccdigest,
+                   kCCDigestSHA512,
+                   SHA512_DIGEST_LENGTH,
+                   TO_HASH_SHA512);
 }
