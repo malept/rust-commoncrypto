@@ -181,6 +181,26 @@ extern "C" {
                     length: usize,
                     output: *mut u8)
                     -> c_int;
+    /// Allocate and initialize a `CCDigestCtx` for a digest.
+    pub fn CCDigestCreate(algorithm: CCDigestAlgorithm) -> &CCDigestCtx;
+    /// Continue to digest data. Returns `0` on success.
+    pub fn CCDigestUpdate(ctx: *mut CCDigestCtx, data: *const u8, length: usize) -> c_int;
+    /// Conclude digest operations and produce the digest output. Returns `0` on success.
+    pub fn CCDigestFinal(ctx: *mut CCDigestCtx, output: *mut u8) -> c_int;
+    /// Clear and free a `CCDigestCtx`.
+    pub fn CCDigestDestroy(ctx: *mut CCDigestCtx);
+    /// Clear and re-initialize a `CCDigestCtx` for the same algorithm.
+    pub fn CCDigestReset(ctx: *mut CCDigestCtx);
+    /// Produce the digest output result for the bytes currently processed. Returns `0` on success.
+    pub fn CCDigestGetDigest(ctx: *mut CCDigestCtx, output: *mut u8) -> c_int;
+    /// Provides the block size of the digest algorithm. Returns `0` on failure.
+    pub fn CCDigestGetBlockSize(algorithm: CCDigestAlgorithm) -> usize;
+    /// Provides the digest output size of the digest algorithm. Returns `0` on failure.
+    pub fn CCDigestGetOutputSize(algorithm: CCDigestAlgorithm) -> usize;
+    /// Provides the block size of the digest algorithm. Returns `0` on failure.
+    pub fn CCDigestGetBlockSizeFromRef(ctx: *mut CCDigestCtx) -> usize;
+    /// Provides the digest output size of the digest algorithm. Returns `0` on failure.
+    pub fn CCDigestGetOutputSizeFromRef(ctx: *mut CCDigestCtx) -> usize;
 }
 
 #[cfg(test)]
@@ -239,6 +259,22 @@ mod test {
         }
     }
 
+    macro_rules! test_ccdigestgetoutputsize {
+        (
+            $test_name: ident,
+            $algorithm: ident,
+            $expected_digest_len: ident
+        ) => {
+            #[test]
+            fn $test_name() {
+                unsafe {
+                    assert_eq!(super::CCDigestGetOutputSize(super::CCDigestAlgorithm::$algorithm),
+                               super::$expected_digest_len);
+                }
+            }
+        }
+    }
+
     test_cc_hash!(md5_hash,
                   CC_MD5_CTX,
                   MD5_DIGEST_LENGTH,
@@ -292,4 +328,10 @@ mod test {
                    kCCDigestSHA512,
                    SHA512_DIGEST_LENGTH,
                    TO_HASH_SHA512);
+
+    test_ccdigestgetoutputsize!(md5_ccdigestoutputsize, kCCDigestMD5, MD5_DIGEST_LENGTH);
+    test_ccdigestgetoutputsize!(sha1_ccdigestoutputsize, kCCDigestSHA1, SHA1_DIGEST_LENGTH);
+    test_ccdigestgetoutputsize!(sha256_ccdigestoutputsize, kCCDigestSHA256, SHA256_DIGEST_LENGTH);
+    test_ccdigestgetoutputsize!(sha384_ccdigestoutputsize, kCCDigestSHA384, SHA384_DIGEST_LENGTH);
+    test_ccdigestgetoutputsize!(sha512_ccdigestoutputsize, kCCDigestSHA512, SHA512_DIGEST_LENGTH);
 }
