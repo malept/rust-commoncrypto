@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `CCDigestAlgorithm` enum in crate `commoncrypto_sys`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, CCDigestAlgorithm">
+
+    <title>commoncrypto_sys::CCDigestAlgorithm - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='index.html'>commoncrypto_sys</a></p><script>window.sidebarCurrent = {name: 'CCDigestAlgorithm', ty: 'enum', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content enum">
+<h1 class='fqn'><span class='in-band'>Enum <a href='index.html'>commoncrypto_sys</a>::<wbr><a class='enum' href=''>CCDigestAlgorithm</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-256' class='srclink' href='../src/commoncrypto_sys/src/lib.rs.html#97-136' title='goto source code'>[src]</a></span></h1>
+<pre class='rust enum'>pub enum CCDigestAlgorithm {
+    kCCDigestNone,
+    kCCDigestMD2,
+    kCCDigestMD4,
+    kCCDigestMD5,
+    kCCDigestRMD128,
+    kCCDigestRMD160,
+    kCCDigestRMD256,
+    kCCDigestRMD320,
+    kCCDigestSHA1,
+    kCCDigestSHA224,
+    kCCDigestSHA256,
+    kCCDigestSHA384,
+    kCCDigestSHA512,
+    kCCDigestSkein128,
+    kCCDigestSkein160,
+    kCCDigestSkein224,
+    kCCDigestSkein256,
+    kCCDigestSkein384,
+    kCCDigestSkein512,
+}</pre><div class='docblock'><p>Digest algorithm used in <code>CCDigest*()</code> functions.</p>
+</div><h2 class='variants'>Variants</h2>
+<span id='variant.kCCDigestNone' class='variant'><span id='kCCDigestNone.v' class='invisible'><code>kCCDigestNone</code></span></span><div class='docblock'><p>No digest algorithm</p>
+</div><span id='variant.kCCDigestMD2' class='variant'><span id='kCCDigestMD2.v' class='invisible'><code>kCCDigestMD2</code></span></span><div class='docblock'><p>MD2</p>
+</div><span id='variant.kCCDigestMD4' class='variant'><span id='kCCDigestMD4.v' class='invisible'><code>kCCDigestMD4</code></span></span><div class='docblock'><p>MD4</p>
+</div><span id='variant.kCCDigestMD5' class='variant'><span id='kCCDigestMD5.v' class='invisible'><code>kCCDigestMD5</code></span></span><div class='docblock'><p>MD5</p>
+</div><span id='variant.kCCDigestRMD128' class='variant'><span id='kCCDigestRMD128.v' class='invisible'><code>kCCDigestRMD128</code></span></span><div class='docblock'><p>RIPEMD-128</p>
+</div><span id='variant.kCCDigestRMD160' class='variant'><span id='kCCDigestRMD160.v' class='invisible'><code>kCCDigestRMD160</code></span></span><div class='docblock'><p>RIPEMD-160</p>
+</div><span id='variant.kCCDigestRMD256' class='variant'><span id='kCCDigestRMD256.v' class='invisible'><code>kCCDigestRMD256</code></span></span><div class='docblock'><p>RIPEMD-256</p>
+</div><span id='variant.kCCDigestRMD320' class='variant'><span id='kCCDigestRMD320.v' class='invisible'><code>kCCDigestRMD320</code></span></span><div class='docblock'><p>RIPEMD-320</p>
+</div><span id='variant.kCCDigestSHA1' class='variant'><span id='kCCDigestSHA1.v' class='invisible'><code>kCCDigestSHA1</code></span></span><div class='docblock'><p>SHA1</p>
+</div><span id='variant.kCCDigestSHA224' class='variant'><span id='kCCDigestSHA224.v' class='invisible'><code>kCCDigestSHA224</code></span></span><div class='docblock'><p>SHA224</p>
+</div><span id='variant.kCCDigestSHA256' class='variant'><span id='kCCDigestSHA256.v' class='invisible'><code>kCCDigestSHA256</code></span></span><div class='docblock'><p>SHA256</p>
+</div><span id='variant.kCCDigestSHA384' class='variant'><span id='kCCDigestSHA384.v' class='invisible'><code>kCCDigestSHA384</code></span></span><div class='docblock'><p>SHA384</p>
+</div><span id='variant.kCCDigestSHA512' class='variant'><span id='kCCDigestSHA512.v' class='invisible'><code>kCCDigestSHA512</code></span></span><div class='docblock'><p>SHA512</p>
+</div><span id='variant.kCCDigestSkein128' class='variant'><span id='kCCDigestSkein128.v' class='invisible'><code>kCCDigestSkein128</code></span></span><div class='docblock'><p>Skein, 128 bit (Deprecated in iPhoneOS 6.0 and MacOSX10.9)</p>
+</div><span id='variant.kCCDigestSkein160' class='variant'><span id='kCCDigestSkein160.v' class='invisible'><code>kCCDigestSkein160</code></span></span><div class='docblock'><p>Skein, 160 bit (Deprecated in iPhoneOS 6.0 and MacOSX10.9)</p>
+</div><span id='variant.kCCDigestSkein224' class='variant'><span id='kCCDigestSkein224.v' class='invisible'><code>kCCDigestSkein224</code></span></span><div class='docblock'><p>Skein, 224 bit (Deprecated in iPhoneOS 6.0 and MacOSX10.9)</p>
+</div><span id='variant.kCCDigestSkein256' class='variant'><span id='kCCDigestSkein256.v' class='invisible'><code>kCCDigestSkein256</code></span></span><div class='docblock'><p>Skein, 256 bit (Deprecated in iPhoneOS 6.0 and MacOSX10.9)</p>
+</div><span id='variant.kCCDigestSkein384' class='variant'><span id='kCCDigestSkein384.v' class='invisible'><code>kCCDigestSkein384</code></span></span><div class='docblock'><p>Skein, 384 bit (Deprecated in iPhoneOS 6.0 and MacOSX10.9)</p>
+</div><span id='variant.kCCDigestSkein512' class='variant'><span id='kCCDigestSkein512.v' class='invisible'><code>kCCDigestSkein512</code></span></span><div class='docblock'><p>Skein, 512 bit (Deprecated in iPhoneOS 6.0 and MacOSX10.9)</p>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "commoncrypto_sys";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    
+    <script defer src="../search-index.js"></script>
+</body>
+</html>
