@@ -1,2 +1,2 @@
 [workspace]
-members = ["commoncrypto-sys"]
+members = ["commoncrypto-sys", "commoncrypto"]

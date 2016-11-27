@@ -1,0 +1,8 @@
+[package]
+name = "commoncrypto"
+version = "0.1.0"
+authors = ["Mark Lee"]
+
+[dependencies]
+commoncrypto-sys = { version = "0.1.0", path = "../commoncrypto-sys" }
+hex = "0.2"
