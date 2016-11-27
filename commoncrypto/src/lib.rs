@@ -91,14 +91,15 @@ impl Drop for Hasher {
 #[cfg(test)]
 mod test {
     use hex::ToHex;
+    use std::io::Write;
     use super::*;
 
     const TO_HASH: &'static str = "The quick brown fox jumps over the lazy dog";
     const TO_HASH_MD5: &'static str = "9e107d9d372bb6826bd81d3542a419d6";
     #[test]
     fn md5_hasher() {
-        let hasher = Hasher.new(CCDigestAlgorithm::kCCDigestMD5);
-        hasher.update(TO_HASH.as_bytes());
+        let mut hasher = Hasher::new(CCDigestAlgorithm::kCCDigestMD5);
+        assert!(hasher.write_all(TO_HASH.as_bytes()).is_ok());
         let result = hasher.finish();
         assert!(result.is_ok());
         assert_eq!(result.expect("Hash failed").to_hex(), TO_HASH_MD5)
