@@ -22,7 +22,7 @@ extern crate commoncrypto_sys;
 extern crate hex;
 
 use commoncrypto_sys::{CCDigestCreate, CCDigestCtx, CCDigestDestroy, CCDigestFinal,
-                       CCDigestGetOutputSizeFromRef, CCDigestUpdate};
+                       CCDigestGetOutputSizeFromRef, CCDigestReset, CCDigestUpdate};
 use std::io;
 
 pub use commoncrypto_sys::CCDigestAlgorithm;
@@ -36,8 +36,17 @@ macro_rules! err_from_ccdigest_retval{
     }
 }
 
+#[derive(PartialEq, Copy, Clone, Debug)]
+enum State {
+    Reset,
+    Updated,
+    Finalized,
+}
+
+#[derive(Debug)]
 pub struct Hasher {
     ctx: *mut CCDigestCtx,
+    state: State,
 }
 
 impl Hasher {
@@ -46,12 +55,31 @@ impl Hasher {
         unsafe {
             ctx = CCDigestCreate(algorithm);
         }
-        Hasher { ctx: ctx }
+        Hasher {
+            ctx: ctx,
+            state: State::Reset,
+        }
+    }
+
+    fn init(&mut self) {
+        match self.state {
+            State::Reset => return,
+            State::Updated => {
+                let _ = self.finish();
+            }
+            State::Finalized => (),
+        }
+        unsafe { CCDigestReset(self.ctx) };
+        self.state = State::Reset;
     }
 
     pub fn update(&mut self, data: &[u8]) -> io::Result<usize> {
+        if self.state == State::Finalized {
+            self.init();
+        }
         let result = unsafe { CCDigestUpdate(self.ctx, data.as_ptr() as *mut _, data.len()) };
         if result == 0 {
+            self.state = State::Updated;
             Ok(data.len())
         } else {
             err_from_ccdigest_retval!("CCDigestCreate", result)
@@ -59,10 +87,14 @@ impl Hasher {
     }
 
     pub fn finish(&mut self) -> io::Result<Vec<u8>> {
+        if self.state == State::Finalized {
+            self.init();
+        }
         let expected_len = unsafe { CCDigestGetOutputSizeFromRef(self.ctx) };
         let mut md = vec![0; MAX_DIGEST_SIZE];
         let result = unsafe { CCDigestFinal(self.ctx, md.as_mut_ptr()) };
         if result == 0 {
+            self.state = State::Finalized;
             md.truncate(expected_len);
             Ok(md)
         } else {
@@ -84,6 +116,9 @@ impl io::Write for Hasher {
 
 impl Drop for Hasher {
     fn drop(&mut self) {
+        if self.state != State::Finalized {
+            let _ = self.finish();
+        }
         unsafe { CCDigestDestroy(self.ctx) }
     }
 }
