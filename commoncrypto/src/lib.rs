@@ -18,6 +18,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+//! Idiomatic Rust wrappers for `CommonCrypto` structs.
+
+#![warn(missing_docs)]
+
 extern crate commoncrypto_sys;
 extern crate hex;
 
@@ -43,6 +47,7 @@ enum State {
     Finalized,
 }
 
+/// Generates cryptographic hashes.
 #[derive(Debug)]
 pub struct Hasher {
     ctx: *mut CCDigestCtx,
@@ -50,6 +55,7 @@ pub struct Hasher {
 }
 
 impl Hasher {
+    /// Creates a new `Hasher` which will use the given cryptographic `algorithm`.
     pub fn new(algorithm: CCDigestAlgorithm) -> Hasher {
         let ctx: *mut CCDigestCtx;
         unsafe {
@@ -73,6 +79,7 @@ impl Hasher {
         self.state = State::Reset;
     }
 
+    /// Feeds data into the hasher.
     pub fn update(&mut self, data: &[u8]) -> io::Result<usize> {
         if self.state == State::Finalized {
             self.init();
@@ -86,6 +93,7 @@ impl Hasher {
         }
     }
 
+    /// Finalizes digest operations and produces the digest output.
     pub fn finish(&mut self) -> io::Result<Vec<u8>> {
         if self.state == State::Finalized {
             self.init();
