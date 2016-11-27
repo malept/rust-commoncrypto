@@ -182,7 +182,7 @@ extern "C" {
                     output: *mut u8)
                     -> c_int;
     /// Allocate and initialize a `CCDigestCtx` for a digest.
-    pub fn CCDigestCreate(algorithm: CCDigestAlgorithm) -> &CCDigestCtx;
+    pub fn CCDigestCreate(algorithm: CCDigestAlgorithm) -> *mut CCDigestCtx;
     /// Continue to digest data. Returns `0` on success.
     pub fn CCDigestUpdate(ctx: *mut CCDigestCtx, data: *const u8, length: usize) -> c_int;
     /// Conclude digest operations and produce the digest output. Returns `0` on success.

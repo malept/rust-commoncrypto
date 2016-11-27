@@ -14,3 +14,4 @@ run_cargo() {
 }
 
 run_cargo commoncrypto-sys
+run_cargo commoncrypto
