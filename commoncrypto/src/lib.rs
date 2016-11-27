@@ -96,6 +96,7 @@ mod test {
 
     const TO_HASH: &'static str = "The quick brown fox jumps over the lazy dog";
     const TO_HASH_MD5: &'static str = "9e107d9d372bb6826bd81d3542a419d6";
+
     #[test]
     fn md5_hasher() {
         let mut hasher = Hasher::new(CCDigestAlgorithm::kCCDigestMD5);
