@@ -331,7 +331,13 @@ mod test {
 
     test_ccdigestgetoutputsize!(md5_ccdigestoutputsize, kCCDigestMD5, MD5_DIGEST_LENGTH);
     test_ccdigestgetoutputsize!(sha1_ccdigestoutputsize, kCCDigestSHA1, SHA1_DIGEST_LENGTH);
-    test_ccdigestgetoutputsize!(sha256_ccdigestoutputsize, kCCDigestSHA256, SHA256_DIGEST_LENGTH);
-    test_ccdigestgetoutputsize!(sha384_ccdigestoutputsize, kCCDigestSHA384, SHA384_DIGEST_LENGTH);
-    test_ccdigestgetoutputsize!(sha512_ccdigestoutputsize, kCCDigestSHA512, SHA512_DIGEST_LENGTH);
+    test_ccdigestgetoutputsize!(sha256_ccdigestoutputsize,
+                                kCCDigestSHA256,
+                                SHA256_DIGEST_LENGTH);
+    test_ccdigestgetoutputsize!(sha384_ccdigestoutputsize,
+                                kCCDigestSHA384,
+                                SHA384_DIGEST_LENGTH);
+    test_ccdigestgetoutputsize!(sha512_ccdigestoutputsize,
+                                kCCDigestSHA512,
+                                SHA512_DIGEST_LENGTH);
 }
