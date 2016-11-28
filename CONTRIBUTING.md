@@ -1,9 +1,9 @@
-# Contributing to commoncrypto-sys
+# Contributing to rust-commoncrypto
 
-commoncrypto-sys is a part of the Rust ecosystem. As such, all contributions to this project follow
+rust-commoncrypto is a part of the Rust ecosystem. As such, all contributions to this project follow
 the [Rust language's code of conduct](https://www.rust-lang.org/conduct.html) where appropriate.
 
-This project is hosted at [GitHub](https://github.com/malept/commoncrypto-sys). Both pull requests
+This project is hosted at [GitHub](https://github.com/malept/rust-commoncrypto). Both pull requests
 and issues of many different kinds are accepted.
 
 ## Filing Issues
@@ -15,8 +15,8 @@ make sure that your issue has not already been filed by someone else.
 
 When filing a bug, please include the following information:
 
-* Rust version that compiled commoncrypto-sys.
-* The version (and/or git revision) of commoncrypto-sys.
+* Rust version that compiled the `commoncrypto` crate.
+* The version (and/or git revision) of the `commoncrypto` crate.
 * A detailed list of steps to reproduce the bug. A minimal testcase would be very helpful,
   if possible.
 * If there any any error messages in the console, copying them in the bug summary will be
