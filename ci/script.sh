@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # the main build
-set -xe
+set -e
 
 run_cargo() {
     dir="$1"
@@ -19,9 +19,9 @@ run_cargo() {
 
 run_rustfmt() {
     if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
-        files="$(git diff --name-only "$TRAVIS_COMMIT" "$TRAVIS_BRANCH" . | grep \.rs$)"
+        files="$(git diff --name-only "$TRAVIS_COMMIT" "$TRAVIS_BRANCH" . | (grep \.rs$; true))"
     else
-        files="$(git show --format= --name-only "$TRAVIS_COMMIT_RANGE" . | sort -u | grep \.rs$)"
+        files="$(git show --format= --name-only "$TRAVIS_COMMIT_RANGE" . | sort -u | (grep \.rs$; true))"
     fi
 
     if [[ -n "$files" ]]; then
