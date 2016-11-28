@@ -9,8 +9,11 @@ rust:
 - nightly
 
 cache:
-- cargo
-- pip
+  pip: true
+  directories:
+  - $HOME/.cargo
+  - $TRAVIS_BUILD_DIR/target
+
 
 matrix:
   include:
@@ -24,7 +27,6 @@ matrix:
 before_script: ci/before_script.sh
 script: ci/script.sh
 after_success:
-- cd commoncrypto
 - travis-cargo --only stable doc-upload
 - travis-cargo --only stable coveralls --no-sudo --verify --exclude-pattern=/test.rs
 
