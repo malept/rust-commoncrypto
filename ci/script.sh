@@ -14,6 +14,7 @@ run_cargo() {
         cargo clippy --features=$TRAVIS_CARGO_NIGHTLY_FEATURE -- -Wclippy_pedantic
     fi
     popd
+    echo "Completed $dir"
 }
 
 run_rustfmt() {
@@ -26,6 +27,7 @@ run_rustfmt() {
     if [[ -n "$files" ]]; then
         cargo fmt -- --write-mode=diff $files
     fi
+    echo "Completed rustfmt"
 }
 
 run_cargo commoncrypto-sys
