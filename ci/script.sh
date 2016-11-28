@@ -4,7 +4,8 @@
 set -e
 
 run_cargo() {
-    pushd "$1"
+    dir="$1"
+    pushd "$dir"
 
     run_rustfmt
     travis-cargo test
@@ -17,9 +18,9 @@ run_cargo() {
 
 run_rustfmt() {
     if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
-        files="$(git diff --name-only "$TRAVIS_COMMIT" "$TRAVIS_BRANCH" | grep \.rs$)"
+        files="$(git diff . --name-only "$TRAVIS_COMMIT" "$TRAVIS_BRANCH" | grep \.rs$)"
     else
-        files="$(git show --format= --name-only "$TRAVIS_COMMIT_RANGE" | sort -u | grep \.rs$)"
+        files="$(git show . --format= --name-only "$TRAVIS_COMMIT_RANGE" | sort -u | grep \.rs$)"
     fi
 
     if [[ -n "$files" ]]; then
