@@ -13,10 +13,13 @@ run_cargo() {
     if test "$TRAVIS_RUST_VERSION" = "nightly"; then
         cargo clippy --features=$TRAVIS_CARGO_NIGHTLY_FEATURE -- -Wclippy_pedantic
     fi
-    popd
+    popd > /dev/null
     echo "Completed $dir"
 }
 
+#
+# Based on comments in https://www.reddit.com/r/rust/comments/5f3oov/
+#
 run_rustfmt() {
     if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
         files="$(git diff --name-only "$TRAVIS_COMMIT" "$TRAVIS_BRANCH" . | (grep \.rs$; true))"
