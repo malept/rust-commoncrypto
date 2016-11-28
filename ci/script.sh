@@ -5,6 +5,11 @@ set -e
 
 run_cargo() {
     pushd "$1"
+    if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
+        cargo fmt -- --write-mode=diff $(git diff --name-only "$TRAVIS_COMMIT" "$TRAVIS_BRANCH" | grep \.rs$)
+    else
+        cargo fmt -- --write-mode=diff $(git show --format= --name-only "$TRAVIS_COMMIT_RANGE" | sort -u | grep \.rs$)
+    fi
     travis-cargo test
     travis-cargo --only stable doc
     if test "$TRAVIS_RUST_VERSION" = "nightly"; then
