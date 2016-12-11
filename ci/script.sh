@@ -7,7 +7,7 @@ run_cargo() {
     dir="$1"
     pushd "$dir" > /dev/null
 
-    run_rustfmt
+    # run_rustfmt
     travis-cargo test
     travis-cargo --only stable doc
     if test "$TRAVIS_RUST_VERSION" = "nightly"; then
