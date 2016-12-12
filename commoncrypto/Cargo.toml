@@ -2,6 +2,7 @@
 name = "commoncrypto"
 version = "0.1.0"
 authors = ["Mark Lee"]
+description = "Idiomatic Rust wrappers for Mac OS X's CommonCrypto library"
 documentation = "https://docs.rs/commoncrypto"
 repository = "https://github.com/malept/rust-commoncrypto"
 readme = "README.md"
