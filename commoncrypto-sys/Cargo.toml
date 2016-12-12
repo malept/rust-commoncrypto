@@ -3,15 +3,11 @@ name = "commoncrypto-sys"
 version = "0.1.0"
 authors = ["Mark Lee"]
 description = "FFI bindings to Mac OS X's CommonCrypto library"
-documentation = "https://malept.github.io/commoncrypto-sys/"
-repository = "https://github.com/malept/commoncrypto-sys"
+documentation = "https://docs.rs/commoncrypto-sys"
+repository = "https://github.com/malept/rust-commoncrypto"
 readme = "README.md"
-keywords = ["crypto", "hash", "digest"]
+keywords = ["crypto", "hash", "digest", "osx", "commoncrypto"]
 license = "MIT"
-exclude = [
-    ".*.yml",
-    "ci/*"
-]
 
 [features]
 lint = ["clippy"]
