@@ -5,7 +5,6 @@ authors = ["Mark Lee"]
 description = "FFI bindings to Mac OS X's CommonCrypto library"
 documentation = "https://docs.rs/commoncrypto-sys"
 repository = "https://github.com/malept/rust-commoncrypto"
-readme = "README.md"
 keywords = ["crypto", "hash", "digest", "osx", "commoncrypto"]
 license = "MIT"
 
