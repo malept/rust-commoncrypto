@@ -128,6 +128,8 @@ impl Drop for Hasher {
 
 #[cfg(test)]
 mod test {
+    extern crate hex;
+
     use hex::ToHex;
     use std::io::Write;
     use super::*;

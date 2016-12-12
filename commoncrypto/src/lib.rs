@@ -23,7 +23,6 @@
 #![warn(missing_docs)]
 
 extern crate commoncrypto_sys;
-extern crate hex;
 
 #[warn(missing_docs)]
 pub mod hash;

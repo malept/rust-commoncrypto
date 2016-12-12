@@ -22,7 +22,6 @@
 
 #![warn(missing_docs)]
 
-extern crate hex;
 extern crate libc;
 
 use libc::{c_int, c_uint};
@@ -205,6 +204,7 @@ extern "C" {
 
 #[cfg(test)]
 mod test {
+    extern crate hex;
     use hex::ToHex;
 
     const TO_HASH: &'static str = "The quick brown fox jumps over the lazy dog";
