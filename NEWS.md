@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Added
+
+* Support for the PBKDF2 key-derivation function (#1)
+
 ## [0.1.0] - 2016-12-12
 
 Initial release. Includes a wrapper for the `CommonDigestSPI` API.

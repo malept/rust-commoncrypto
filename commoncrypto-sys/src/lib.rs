@@ -143,6 +143,28 @@ pub struct CCDigestCtx {
     context: [u8; CC_DIGEST_SIZE],
 }
 
+/// Algorithm for use with `CCKeyDerivationPBKDF()``
+#[repr(C)]
+pub enum CCPBKDFAlgorithm {
+    /// PBKDF2
+    kCCPBKDF2 = 2,
+}
+
+/// Pseudo-random algorithm to use with `CCKeyDerivationPBKDF()`
+#[repr(C)]
+pub enum CCPseudoRandomAlgorithm {
+    /// SHA-1
+    kCCPRFHmacAlgSHA1 = 1,
+    /// SHA-224
+    kCCPRFHmacAlgSHA224 = 2,
+    /// SHA-256
+    kCCPRFHmacAlgSHA256 = 3,
+    /// SHA-384
+    kCCPRFHmacAlgSHA384 = 4,
+    /// SHA-512
+    kCCPRFHmacAlgSHA512 = 5,
+}
+
 extern "C" {
     /// Initializes MD5 hasher. See `man 3cc CC_MD5` for details.
     pub fn CC_MD5_Init(ctx: *mut CC_MD5_CTX) -> c_int;
@@ -200,4 +222,7 @@ extern "C" {
     pub fn CCDigestGetBlockSizeFromRef(ctx: *mut CCDigestCtx) -> usize;
     /// Provides the digest output size of the digest algorithm. Returns `0` on failure.
     pub fn CCDigestGetOutputSizeFromRef(ctx: *mut CCDigestCtx) -> usize;
+
+    /// Derive a key from a user-supplied password via PBKDF2
+    pub fn CCKeyDerivationPBKDF(algorithm: CCPBKDFAlgorithm, password: *const u8, passwordLen: usize, salt: *const u8, saltLen: usize, prf: CCPseudoRandomAlgorithm, rounds: u32, derivedKey: *mut u8, derivedKeyLen: usize) -> c_int;
 }
