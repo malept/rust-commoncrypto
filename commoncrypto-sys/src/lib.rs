@@ -143,14 +143,14 @@ pub struct CCDigestCtx {
     context: [u8; CC_DIGEST_SIZE],
 }
 
-/// Algorithm for use with `CCKeyDerivationPBKDF()`
+/// Algorithm for use with `CCKeyDerivationPBKDF()`.
 #[repr(C)]
 pub enum CCPBKDFAlgorithm {
     /// PBKDF2
     kCCPBKDF2 = 2,
 }
 
-/// Pseudo-random algorithm to use with `CCKeyDerivationPBKDF()`
+/// Pseudo-random algorithm to use with `CCKeyDerivationPBKDF()`.
 #[repr(C)]
 pub enum CCPseudoRandomAlgorithm {
     /// SHA-1
@@ -223,7 +223,7 @@ extern "C" {
     /// Provides the digest output size of the digest algorithm. Returns `0` on failure.
     pub fn CCDigestGetOutputSizeFromRef(ctx: *mut CCDigestCtx) -> usize;
 
-    /// Derive a key from a user-supplied password via PBKDF2
+    /// Derive a key from a user-supplied password via PBKDF2.
     pub fn CCKeyDerivationPBKDF(algorithm: CCPBKDFAlgorithm,
                                 password: *const u8,
                                 passwordLen: usize,
