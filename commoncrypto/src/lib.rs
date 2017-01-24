@@ -26,3 +26,5 @@ extern crate commoncrypto_sys;
 
 #[warn(missing_docs)]
 pub mod hash;
+#[warn(missing_docs)]
+pub mod pbkdf2;
