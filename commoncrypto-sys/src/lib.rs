@@ -224,5 +224,14 @@ extern "C" {
     pub fn CCDigestGetOutputSizeFromRef(ctx: *mut CCDigestCtx) -> usize;
 
     /// Derive a key from a user-supplied password via PBKDF2
-    pub fn CCKeyDerivationPBKDF(algorithm: CCPBKDFAlgorithm, password: *const u8, passwordLen: usize, salt: *const u8, saltLen: usize, prf: CCPseudoRandomAlgorithm, rounds: u32, derivedKey: *mut u8, derivedKeyLen: usize) -> c_int;
+    pub fn CCKeyDerivationPBKDF(algorithm: CCPBKDFAlgorithm,
+                                password: *const u8,
+                                passwordLen: usize,
+                                salt: *const u8,
+                                saltLen: usize,
+                                prf: CCPseudoRandomAlgorithm,
+                                rounds: u32,
+                                derivedKey: *mut u8,
+                                derivedKeyLen: usize)
+                                -> c_int;
 }
