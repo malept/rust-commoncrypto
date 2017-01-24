@@ -1,6 +1,6 @@
 [package]
 name = "commoncrypto-sys"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Mark Lee"]
 description = "FFI bindings to Mac OS X's CommonCrypto library"
 documentation = "https://docs.rs/commoncrypto-sys"

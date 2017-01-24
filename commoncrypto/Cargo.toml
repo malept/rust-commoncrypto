@@ -1,6 +1,6 @@
 [package]
 name = "commoncrypto"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Mark Lee"]
 description = "Idiomatic Rust wrappers for Mac OS X's CommonCrypto library"
 documentation = "https://docs.rs/commoncrypto"
@@ -12,7 +12,7 @@ license = "MIT"
 lint = ["clippy"]
 
 [dependencies]
-commoncrypto-sys = { version = "0.1.0", path = "../commoncrypto-sys" }
+commoncrypto-sys = { version = "0.2.0", path = "../commoncrypto-sys" }
 
 clippy = { version = "0.0", optional = true }
 
