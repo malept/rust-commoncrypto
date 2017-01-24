@@ -143,7 +143,7 @@ pub struct CCDigestCtx {
     context: [u8; CC_DIGEST_SIZE],
 }
 
-/// Algorithm for use with `CCKeyDerivationPBKDF()``
+/// Algorithm for use with `CCKeyDerivationPBKDF()`
 #[repr(C)]
 pub enum CCPBKDFAlgorithm {
     /// PBKDF2
