@@ -1,8 +1,8 @@
-# `commoncrypto`
+# `rust-commoncrypto`
 
 [![CI Status](https://travis-ci.org/malept/rust-commoncrypto.svg?branch=master)](https://travis-ci.org/malept/rust-commoncrypto)
 
-Rust FFI bindings and wrappers for Mac OS X's CommonCrypto library.
+Rust FFI bindings and idiomatic wrappers for Mac OS X's CommonCrypto library.
 
 ## Requirements
 
@@ -13,7 +13,10 @@ OS X or macOS
 Add `commoncrypto` to your project's `Cargo.toml`. For more details, consult the
 [Cargo guide](http://doc.crates.io/guide.html#adding-dependencies-from-cratesio).
 
-## [Documentation](https://malept.github.io/rust-commoncrypto/)
+## Documentation
+
+* [`commoncrypto-sys`](https://docs.rs/commoncrypto-sys)
+* [`commoncrypto`](https://docs.rs/commoncrypto)
 
 ## [Contributing](https://github.com/malept/rust-commoncrypto/blob/master/CONTRIBUTING.md)
 
