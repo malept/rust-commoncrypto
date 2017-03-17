@@ -6,7 +6,9 @@ description = "FFI bindings to Mac OS X's CommonCrypto library"
 documentation = "https://docs.rs/commoncrypto-sys"
 repository = "https://github.com/malept/rust-commoncrypto"
 keywords = ["crypto", "hash", "digest", "osx", "commoncrypto"]
+categories = ["cryptography", "external-ffi-bindings", "os::macos-apis"]
 license = "MIT"
+travis-ci = { repository = "malept/rust-commoncrypto" }
 
 [features]
 lint = ["clippy"]

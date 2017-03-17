@@ -6,7 +6,9 @@ description = "Idiomatic Rust wrappers for Mac OS X's CommonCrypto library"
 documentation = "https://docs.rs/commoncrypto"
 repository = "https://github.com/malept/rust-commoncrypto"
 keywords = ["crypto", "hash", "digest", "osx", "commoncrypto"]
+categories = ["cryptography", "api-bindings", "os::macos-apis"]
 license = "MIT"
+travis-ci = { repository = "malept/rust-commoncrypto" }
 
 [features]
 lint = ["clippy"]
