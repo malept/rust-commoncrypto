@@ -92,6 +92,7 @@ cc_sha2_struct!(CC_SHA256_CTX, u32);
 cc_sha2_struct!(CC_SHA512_CTX, u64);
 
 /// Digest algorithm used in `CCDigest*()` functions.
+#[allow(non_camel_case_types)]
 #[repr(C)]
 pub enum CCDigestAlgorithm {
     /// No digest algorithm
@@ -144,6 +145,7 @@ pub struct CCDigestCtx {
 }
 
 /// Algorithm for use with `CCKeyDerivationPBKDF()`.
+#[allow(non_camel_case_types)]
 #[repr(C)]
 pub enum CCPBKDFAlgorithm {
     /// PBKDF2
@@ -151,6 +153,7 @@ pub enum CCPBKDFAlgorithm {
 }
 
 /// Pseudo-random algorithm to use with `CCKeyDerivationPBKDF()`.
+#[allow(non_camel_case_types)]
 #[repr(C)]
 pub enum CCPseudoRandomAlgorithm {
     /// SHA-1
