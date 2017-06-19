@@ -11,7 +11,7 @@ run_cargo() {
     travis-cargo test
     travis-cargo --only stable doc
     if test "$TRAVIS_RUST_VERSION" = "nightly"; then
-        cargo clippy --features=$TRAVIS_CARGO_NIGHTLY_FEATURE -- -Wclippy_pedantic
+        cargo clippy -- --allow clippy_pedantic
     fi
     popd > /dev/null
     echo "Completed $dir"
