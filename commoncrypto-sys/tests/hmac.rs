@@ -45,7 +45,7 @@ macro_rules! test_cchmaccontext {
 const BLANK: &str = "";
 
 test_cchmaccontext!(
-    test_cchmaccontext_md5,
+    md5_cchmaccontext,
     kCCHmacAlgMD5,
     MD5_DIGEST_LENGTH,
     BLANK,
@@ -53,7 +53,7 @@ test_cchmaccontext!(
     HMAC_MD5_BLANK
 );
 test_cchmaccontext!(
-    test_cchmaccontext_sha1,
+    sha1_cchmaccontext,
     kCCHmacAlgSHA1,
     SHA1_DIGEST_LENGTH,
     BLANK,
@@ -61,7 +61,7 @@ test_cchmaccontext!(
     HMAC_SHA1_BLANK
 );
 test_cchmaccontext!(
-    test_cchmaccontext_sha224,
+    sha224_cchmaccontext,
     kCCHmacAlgSHA224,
     SHA224_DIGEST_LENGTH,
     BLANK,
@@ -69,7 +69,7 @@ test_cchmaccontext!(
     HMAC_SHA224_BLANK
 );
 test_cchmaccontext!(
-    test_cchmaccontext_sha256,
+    sha256_cchmaccontext,
     kCCHmacAlgSHA256,
     SHA256_DIGEST_LENGTH,
     BLANK,
@@ -77,7 +77,7 @@ test_cchmaccontext!(
     HMAC_SHA256_BLANK
 );
 test_cchmaccontext!(
-    test_cchmaccontext_sha384,
+    sha384_cchmaccontext,
     kCCHmacAlgSHA384,
     SHA384_DIGEST_LENGTH,
     BLANK,
@@ -85,7 +85,7 @@ test_cchmaccontext!(
     HMAC_SHA384_BLANK
 );
 test_cchmaccontext!(
-    test_cchmaccontext_sha512,
+    sha512_cchmaccontext,
     kCCHmacAlgSHA512,
     SHA512_DIGEST_LENGTH,
     BLANK,
