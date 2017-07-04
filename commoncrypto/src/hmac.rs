@@ -43,10 +43,11 @@ macro_rules! hmac_finish {
 /// # Examples
 ///
 /// ```rust
-/// use crypto_hash::{Algorithm, HMAC};
+/// use commoncrypto::hmac::HMAC;
+/// use commoncrypto_sys::CCHmacAlgorithm;
 /// use std::io::Write;
 ///
-/// let mut hmac = HMAC::new(Algorithm::SHA256, b"");
+/// let mut hmac = HMAC::new(CCHmacAlgorithm::kCCHmacAlgSHA256, b"");
 /// hmac.write_all(b"crypto");
 /// hmac.write_all(b"-");
 /// hmac.write_all(b"hash");
