@@ -43,6 +43,8 @@ macro_rules! hmac_finish {
 /// # Examples
 ///
 /// ```rust
+/// extern crate commoncrypto_sys;
+///
 /// use commoncrypto::hmac::HMAC;
 /// use commoncrypto_sys::CCHmacAlgorithm;
 /// use std::io::Write;
@@ -70,7 +72,7 @@ hmac_finish!(hmac_sha384_finish, SHA384_DIGEST_LENGTH);
 hmac_finish!(hmac_sha512_finish, SHA512_DIGEST_LENGTH);
 
 impl HMAC {
-    /// Create a new `HMAC` for the given `Algorithm` and `key`.
+    /// Create a new `HMAC` for the given `CCHmacAlgorithm` and `key`.
     pub fn new(algorithm: CCHmacAlgorithm, key: &[u8]) -> HMAC {
         let mut ctx = CCHmacContext::default();
         unsafe {
