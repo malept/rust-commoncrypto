@@ -200,11 +200,12 @@ extern "C" {
     /// Generates SHA512 hash. See `man 3cc CC_SHA` for details.
     pub fn CC_SHA512_Final(md: *mut u8, ctx: *mut CC_SHA512_CTX) -> c_int;
     /// Generic digest hasher.
-    pub fn CCDigest(algorithm: CCDigestAlgorithm,
-                    data: *const u8,
-                    length: usize,
-                    output: *mut u8)
-                    -> c_int;
+    pub fn CCDigest(
+        algorithm: CCDigestAlgorithm,
+        data: *const u8,
+        length: usize,
+        output: *mut u8,
+    ) -> c_int;
     /// Allocate and initialize a `CCDigestCtx` for a digest.
     pub fn CCDigestCreate(algorithm: CCDigestAlgorithm) -> *mut CCDigestCtx;
     /// Continue to digest data. Returns `0` on success.
@@ -227,14 +228,15 @@ extern "C" {
     pub fn CCDigestGetOutputSizeFromRef(ctx: *mut CCDigestCtx) -> usize;
 
     /// Derive a key from a user-supplied password via PBKDF2.
-    pub fn CCKeyDerivationPBKDF(algorithm: CCPBKDFAlgorithm,
-                                password: *const u8,
-                                passwordLen: usize,
-                                salt: *const u8,
-                                saltLen: usize,
-                                prf: CCPseudoRandomAlgorithm,
-                                rounds: u32,
-                                derivedKey: *mut u8,
-                                derivedKeyLen: usize)
-                                -> c_int;
+    pub fn CCKeyDerivationPBKDF(
+        algorithm: CCPBKDFAlgorithm,
+        password: *const u8,
+        passwordLen: usize,
+        salt: *const u8,
+        saltLen: usize,
+        prf: CCPseudoRandomAlgorithm,
+        rounds: u32,
+        derivedKey: *mut u8,
+        derivedKeyLen: usize,
+    ) -> c_int;
 }

@@ -40,9 +40,11 @@ macro_rules! test_pbkdf2 {
 }
 
 test_pbkdf2!(pbkdf2_1, kCCPRFHmacAlgSHA1, PASSWORD, SALT, 1, DERIVED1);
-test_pbkdf2!(pbkdf2_4096,
-             kCCPRFHmacAlgSHA1,
-             PASSWORD,
-             SALT,
-             4096,
-             DERIVED4096);
+test_pbkdf2!(
+    pbkdf2_4096,
+    kCCPRFHmacAlgSHA1,
+    PASSWORD,
+    SALT,
+    4096,
+    DERIVED4096
+);

@@ -39,23 +39,26 @@ macro_rules! err_from_cckeyderivationpbkdf_retval {
 }
 
 /// Derive a key from a password or passphrase and a salt
-pub fn pbkdf2(password: &[u8],
-              salt: &[u8],
-              prf: CCPseudoRandomAlgorithm,
-              rounds: u32,
-              key_len: usize)
-              -> io::Result<Vec<u8>> {
+pub fn pbkdf2(
+    password: &[u8],
+    salt: &[u8],
+    prf: CCPseudoRandomAlgorithm,
+    rounds: u32,
+    key_len: usize,
+) -> io::Result<Vec<u8>> {
     let mut pw_derived = vec![0u8; key_len];
     let result = unsafe {
-        CCKeyDerivationPBKDF(CCPBKDFAlgorithm::kCCPBKDF2,
-                             password.as_ptr(),
-                             password.len(),
-                             salt.as_ptr(),
-                             salt.len(),
-                             prf,
-                             rounds,
-                             pw_derived.as_mut_ptr(),
-                             pw_derived.len())
+        CCKeyDerivationPBKDF(
+            CCPBKDFAlgorithm::kCCPBKDF2,
+            password.as_ptr(),
+            password.len(),
+            salt.as_ptr(),
+            salt.len(),
+            prf,
+            rounds,
+            pw_derived.as_mut_ptr(),
+            pw_derived.len(),
+        )
     };
 
     if result == 0 {
