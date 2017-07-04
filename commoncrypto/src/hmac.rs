@@ -20,7 +20,9 @@
 
 //! Idiomatic Rust wrapper for `CommonCrypto`'s `CCHmacContext` struct.
 
-use commoncrypto_sys::{CCHmacAlgorithm, CCHmacContext, CCHmacFinal, CCHmacInit, CCHmacUpdate,
+pub use commoncrypto_sys::CCHmacAlgorithm;
+
+use commoncrypto_sys::{CCHmacContext, CCHmacFinal, CCHmacInit, CCHmacUpdate,
                        MD5_DIGEST_LENGTH, SHA1_DIGEST_LENGTH, SHA224_DIGEST_LENGTH,
                        SHA256_DIGEST_LENGTH, SHA384_DIGEST_LENGTH, SHA512_DIGEST_LENGTH};
 use std::io;
@@ -43,10 +45,7 @@ macro_rules! hmac_finish {
 /// # Examples
 ///
 /// ```rust
-/// extern crate commoncrypto_sys;
-///
-/// use commoncrypto::hmac::HMAC;
-/// use commoncrypto_sys::CCHmacAlgorithm;
+/// use commoncrypto::hmac::{CCHmacAlgorithm, HMAC};
 /// use std::io::Write;
 ///
 /// let mut hmac = HMAC::new(CCHmacAlgorithm::kCCHmacAlgSHA256, b"");
