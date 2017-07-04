@@ -22,9 +22,9 @@
 
 pub use commoncrypto_sys::CCHmacAlgorithm;
 
-use commoncrypto_sys::{CCHmacContext, CCHmacFinal, CCHmacInit, CCHmacUpdate,
-                       MD5_DIGEST_LENGTH, SHA1_DIGEST_LENGTH, SHA224_DIGEST_LENGTH,
-                       SHA256_DIGEST_LENGTH, SHA384_DIGEST_LENGTH, SHA512_DIGEST_LENGTH};
+use commoncrypto_sys::{CCHmacContext, CCHmacFinal, CCHmacInit, CCHmacUpdate, MD5_DIGEST_LENGTH,
+                       SHA1_DIGEST_LENGTH, SHA224_DIGEST_LENGTH, SHA256_DIGEST_LENGTH,
+                       SHA384_DIGEST_LENGTH, SHA512_DIGEST_LENGTH};
 use std::io;
 
 macro_rules! hmac_finish {
