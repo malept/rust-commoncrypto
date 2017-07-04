@@ -36,6 +36,8 @@ pub const MD5_DIGEST_LENGTH: usize = 16;
 const SHA_LBLOCK: usize = 16;
 /// Number of bytes for an SHA1 hash.
 pub const SHA1_DIGEST_LENGTH: usize = 20;
+/// Number of bytes for an SHA224 hash.
+pub const SHA224_DIGEST_LENGTH: usize = 28;
 /// Number of bytes for an SHA256 hash.
 pub const SHA256_DIGEST_LENGTH: usize = 32;
 /// Number of bytes for an SHA384 hash.
