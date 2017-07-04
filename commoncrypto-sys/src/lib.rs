@@ -1,4 +1,4 @@
-// Copyright (c) 2016 Mark Lee
+// Copyright (c) 2016, 2017 Mark Lee
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -144,7 +144,7 @@ pub struct CCDigestCtx {
     context: [u8; CC_DIGEST_SIZE],
 }
 
-/// Algorithm for use with `CCKeyDerivationPBKDF()`.
+/// Algorithm used in `CCKeyDerivationPBKDF()`.
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub enum CCPBKDFAlgorithm {
@@ -152,7 +152,7 @@ pub enum CCPBKDFAlgorithm {
     kCCPBKDF2 = 2,
 }
 
-/// Pseudo-random algorithm to use with `CCKeyDerivationPBKDF()`.
+/// Pseudo-random algorithm used in `CCKeyDerivationPBKDF()`.
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub enum CCPseudoRandomAlgorithm {
