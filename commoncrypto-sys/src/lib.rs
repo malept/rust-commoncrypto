@@ -170,6 +170,58 @@ pub enum CCPseudoRandomAlgorithm {
     kCCPRFHmacAlgSHA512 = 5,
 }
 
+/// Digest Algorithm used in `CCHmacInit()`.
+#[allow(dead_code, non_camel_case_types, non_snake_case)]
+#[derive(Clone, Debug, PartialEq)]
+#[repr(C)]
+pub enum CCHmacAlgorithm {
+    /// SHA1
+    kCCHmacAlgSHA1,
+    /// MD5
+    kCCHmacAlgMD5,
+    /// SHA256
+    kCCHmacAlgSHA256,
+    /// SHA384
+    kCCHmacAlgSHA384,
+    /// SHA512
+    kCCHmacAlgSHA512,
+    /// SHA224
+    kCCHmacAlgSHA224,
+}
+
+const CC_HMAC_CONTEXT_SIZE: usize = 96;
+
+/// Context used in `CCHmac*()` functions.
+#[allow(non_camel_case_types, non_snake_case)]
+#[repr(C)]
+pub struct CCHmacContext {
+    ctx: [u32; CC_HMAC_CONTEXT_SIZE],
+}
+
+impl std::fmt::Debug for CCHmacContext {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        let mut output = String::from("CCHmacContext {{ ctx: [");
+        let mut first = true;
+        for i in 0..CC_HMAC_CONTEXT_SIZE {
+            if first {
+                first = false;
+            } else {
+                output.push_str(", ");
+            }
+            let item = self.ctx[i];
+            output.push_str(format!("{}", item).as_str());
+        }
+        output.push_str("] }}");
+        write!(f, "{}", output)
+    }
+}
+
+impl Default for CCHmacContext {
+    fn default() -> Self {
+        Self { ctx: [0u32; CC_HMAC_CONTEXT_SIZE] }
+    }
+}
+
 extern "C" {
     /// Initializes MD5 hasher. See `man 3cc CC_MD5` for details.
     pub fn CC_MD5_Init(ctx: *mut CC_MD5_CTX) -> c_int;
@@ -228,6 +280,15 @@ extern "C" {
     pub fn CCDigestGetBlockSizeFromRef(ctx: *mut CCDigestCtx) -> usize;
     /// Provides the digest output size of the digest algorithm. Returns `0` on failure.
     pub fn CCDigestGetOutputSizeFromRef(ctx: *mut CCDigestCtx) -> usize;
+
+    pub fn CCHmacInit(
+        ctx: *mut CCHmacContext,
+        algorithm: CCHmacAlgorithm,
+        key: *const u8,
+        keyLength: usize,
+    );
+    pub fn CCHmacUpdate(ctx: *mut CCHmacContext, data: *const u8, dataLength: usize);
+    pub fn CCHmacFinal(ctx: *mut CCHmacContext, macOut: *mut u8);
 
     /// Derive a key from a user-supplied password via PBKDF2.
     pub fn CCKeyDerivationPBKDF(
