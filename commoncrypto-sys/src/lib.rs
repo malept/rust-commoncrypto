@@ -170,7 +170,7 @@ pub enum CCPseudoRandomAlgorithm {
     kCCPRFHmacAlgSHA512 = 5,
 }
 
-/// Digest Algorithm used in `CCHmacInit()`.
+/// Digest algorithm used in `CCHmacInit()`.
 #[allow(dead_code, non_camel_case_types, non_snake_case)]
 #[derive(Clone, Debug, PartialEq)]
 #[repr(C)]
