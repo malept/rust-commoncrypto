@@ -281,13 +281,16 @@ extern "C" {
     /// Provides the digest output size of the digest algorithm. Returns `0` on failure.
     pub fn CCDigestGetOutputSizeFromRef(ctx: *mut CCDigestCtx) -> usize;
 
+    /// Initializes the HMAC generator. See `man 3cc CCHmac` for details.
     pub fn CCHmacInit(
         ctx: *mut CCHmacContext,
         algorithm: CCHmacAlgorithm,
         key: *const u8,
         keyLength: usize,
     );
+    /// Appends data to the HMAC context. See `man 3cc CCHmac` for details.
     pub fn CCHmacUpdate(ctx: *mut CCHmacContext, data: *const u8, dataLength: usize);
+    /// Generates an HMAC for the given context. See `man 3cc CCHmac` for details.
     pub fn CCHmacFinal(ctx: *mut CCHmacContext, macOut: *mut u8);
 
     /// Derive a key from a user-supplied password via PBKDF2.
