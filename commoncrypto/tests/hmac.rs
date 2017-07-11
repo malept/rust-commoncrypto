@@ -5,7 +5,7 @@ use commoncrypto::hmac::{CCHmacAlgorithm, HMAC};
 use hex::ToHex;
 use std::io::Write;
 
-const TO_HMAC   : &str = "The quick brown fox jumps over the lazy dog";
+const TO_HMAC: &str = "The quick brown fox jumps over the lazy dog";
 const TO_HMAC_MD5: &str = "80070713463e7749b90c2dc24911e275";
 
 #[test]
