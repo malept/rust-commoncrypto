@@ -58,9 +58,10 @@ macro_rules! hmac_finish {
 /// assert_eq!(expected, result)
 /// ```
 #[derive(Debug)]
-pub struct HMAC {
+pub struct HMAC<'a> {
     algorithm: CCHmacAlgorithm,
     context: CCHmacContext,
+    key: &'a [u8],
 }
 
 hmac_finish!(hmac_md5_finish, MD5_DIGEST_LENGTH);
@@ -70,9 +71,9 @@ hmac_finish!(hmac_sha256_finish, SHA256_DIGEST_LENGTH);
 hmac_finish!(hmac_sha384_finish, SHA384_DIGEST_LENGTH);
 hmac_finish!(hmac_sha512_finish, SHA512_DIGEST_LENGTH);
 
-impl HMAC {
+impl<'a> HMAC<'a> {
     /// Create a new `HMAC` for the given `CCHmacAlgorithm` and `key`.
-    pub fn new(algorithm: CCHmacAlgorithm, key: &[u8]) -> HMAC {
+    pub fn new(algorithm: CCHmacAlgorithm, key: &'a [u8]) -> HMAC<'a> {
         let mut ctx = CCHmacContext::default();
         unsafe {
             CCHmacInit(&mut ctx, algorithm.clone(), key.as_ptr(), key.len());
@@ -80,6 +81,7 @@ impl HMAC {
         HMAC {
             algorithm: algorithm,
             context: ctx,
+            key: key,
         }
     }
 
@@ -96,7 +98,7 @@ impl HMAC {
     }
 }
 
-impl io::Write for HMAC {
+impl<'a> io::Write for HMAC<'a> {
     fn write(&mut self, buf: &[u8]) -> io::Result<usize> {
         unsafe {
             CCHmacUpdate(&mut self.context, buf.as_ptr(), buf.len());
