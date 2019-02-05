@@ -95,8 +95,10 @@ cc_sha2_struct!(CC_SHA512_CTX, u64);
 pub enum CCDigestAlgorithm {
     /// No digest algorithm
     kCCDigestNone = 0,
+    #[cfg(target_os = "macos")]
     /// MD2
     kCCDigestMD2 = 1,
+    #[cfg(target_os = "macos")]
     /// MD4
     kCCDigestMD4 = 2,
     /// MD5
