@@ -1,6 +1,6 @@
 [package]
 name = "commoncrypto"
-version = "0.2.1"
+version = "0.2.0"
 authors = ["Mark Lee"]
 description = "Idiomatic Rust wrappers for Mac OS X's CommonCrypto library"
 documentation = "https://docs.rs/commoncrypto"
