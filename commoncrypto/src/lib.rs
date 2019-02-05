@@ -25,6 +25,14 @@
 extern crate commoncrypto_sys;
 
 #[warn(missing_docs)]
+#[cfg(all(target_os = "macos", not(feature = "ios-compat")))]
 pub mod hash;
 #[warn(missing_docs)]
+#[cfg(all(target_os = "macos", not(feature = "ios-compat")))]
 pub mod pbkdf2;
+
+#[warn(missing_docs)]
+#[cfg(any(target_os = "ios", feature = "ios-compat"))]
+pub mod ios;
+#[cfg(any(target_os = "ios", feature = "ios-compat"))]
+pub use ios as hash;

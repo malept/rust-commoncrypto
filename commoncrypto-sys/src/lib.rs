@@ -22,9 +22,7 @@
 
 #![warn(missing_docs)]
 
-extern crate libc;
-
-use libc::{c_int, c_uint};
+use std::os::raw::{c_int, c_uint};
 
 /// Total number of operations.
 const MD5_CBLOCK: usize = 64;
@@ -85,7 +83,7 @@ macro_rules! cc_sha2_struct {
             hash: [$ty; 8],
             wbuf: [$ty; 16],
         }
-    }
+    };
 }
 
 cc_sha2_struct!(CC_SHA256_CTX, u32);
@@ -103,12 +101,16 @@ pub enum CCDigestAlgorithm {
     kCCDigestMD4 = 2,
     /// MD5
     kCCDigestMD5 = 3,
+    #[cfg(target_os = "macos")]
     /// RIPEMD-128
     kCCDigestRMD128 = 4,
+    #[cfg(target_os = "macos")]
     /// RIPEMD-160
     kCCDigestRMD160 = 5,
+    #[cfg(target_os = "macos")]
     /// RIPEMD-256
     kCCDigestRMD256 = 6,
+    #[cfg(target_os = "macos")]
     /// RIPEMD-320
     kCCDigestRMD320 = 7,
     /// SHA1
@@ -199,6 +201,9 @@ extern "C" {
     pub fn CC_SHA512_Update(ctx: *mut CC_SHA512_CTX, data: *const u8, n: usize) -> c_int;
     /// Generates SHA512 hash. See `man 3cc CC_SHA` for details.
     pub fn CC_SHA512_Final(md: *mut u8, ctx: *mut CC_SHA512_CTX) -> c_int;
+}
+#[cfg(target_os = "macos")]
+extern "C" {
     /// Generic digest hasher.
     pub fn CCDigest(
         algorithm: CCDigestAlgorithm,

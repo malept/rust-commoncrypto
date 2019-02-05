@@ -1,6 +1,6 @@
 [package]
 name = "commoncrypto-sys"
-version = "0.2.0"
+version = "0.2.1"
 authors = ["Mark Lee"]
 description = "FFI bindings to Mac OS X's CommonCrypto library"
 documentation = "https://docs.rs/commoncrypto-sys"
@@ -14,8 +14,6 @@ travis-ci = { repository = "malept/rust-commoncrypto" }
 lint = ["clippy"]
 
 [dependencies]
-libc = "0.2"
-
 clippy = { version = "0.0", optional = true }
 
 [dev-dependencies]
