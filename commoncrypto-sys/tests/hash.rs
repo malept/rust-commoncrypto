@@ -1,8 +1,6 @@
 extern crate commoncrypto_sys;
 extern crate hex;
 
-use hex::ToHex;
-
 const TO_HASH: &'static str = "The quick brown fox jumps over the lazy dog";
 const TO_HASH_MD5: &'static str = "9e107d9d372bb6826bd81d3542a419d6";
 const TO_HASH_SHA1: &'static str = "2fd4e1c67a2d28fced849ee1bb76e7391b93eb12";
@@ -41,9 +39,9 @@ macro_rules! test_cc_hash {
                 );
                 assert_eq!(commoncrypto_sys::$final_func(md.as_mut_ptr(), &mut ctx), 1);
             }
-            assert_eq!(md.to_vec().to_hex(), $expected_hash);
+            assert_eq!(hex::encode(md.to_vec()), $expected_hash);
         }
-    }
+    };
 }
 
 macro_rules! test_ccdigest {
@@ -67,9 +65,9 @@ macro_rules! test_ccdigest {
                     0
                 )
             }
-            assert_eq!(md.to_vec().to_hex(), $expected_hash);
+            assert_eq!(hex::encode(md.to_vec()), $expected_hash);
         }
-    }
+    };
 }
 
 macro_rules! test_ccdigestgetoutputsize {
@@ -80,7 +78,9 @@ macro_rules! test_ccdigestgetoutputsize {
     ) => {
         #[test]
         fn $test_name() {
-            use commoncrypto_sys::{CCDigestAlgorithm, CCDigestGetOutputSize, $expected_digest_len};
+            use commoncrypto_sys::{
+                $expected_digest_len, CCDigestAlgorithm, CCDigestGetOutputSize,
+            };
             unsafe {
                 assert_eq!(
                     CCDigestGetOutputSize(CCDigestAlgorithm::$algorithm),
@@ -88,7 +88,7 @@ macro_rules! test_ccdigestgetoutputsize {
                 );
             }
         }
-    }
+    };
 }
 
 test_cc_hash!(
