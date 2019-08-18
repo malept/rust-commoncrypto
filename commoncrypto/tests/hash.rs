@@ -2,7 +2,6 @@ extern crate commoncrypto;
 extern crate hex;
 
 use commoncrypto::hash::{CCDigestAlgorithm, Hasher};
-use hex::ToHex;
 use std::io::Write;
 
 const TO_HASH: &'static str = "The quick brown fox jumps over the lazy dog";
@@ -14,5 +13,5 @@ fn md5_hasher() {
     assert!(hasher.write_all(TO_HASH.as_bytes()).is_ok());
     let result = hasher.finish();
     assert!(result.is_ok());
-    assert_eq!(result.expect("Hash failed").to_hex(), TO_HASH_MD5)
+    assert_eq!(hex::encode(result.expect("Hash failed")), TO_HASH_MD5)
 }
