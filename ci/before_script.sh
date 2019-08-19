@@ -16,10 +16,9 @@ cargo_install_update() {
 }
 
 cargo_install cargo-install-update cargo-update
-cargo_install_update rustfmt rustfmt
 
 if test "$TRAVIS_RUST_VERSION" = "stable"; then
     cargo_install_update cargo-coverage cargo-travis
-elif test "$TRAVIS_RUST_VERSION" = "nightly"; then
-    cargo_install_update cargo-clippy clippy
+    rustup component add rustfmt --toolchain $TRAVIS_RUST_VERSION
+    rustup component add clippy --toolchain $TRAVIS_RUST_VERSION
 fi
