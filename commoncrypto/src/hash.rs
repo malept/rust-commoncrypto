@@ -20,19 +20,23 @@
 
 //! Idiomatic Rust wrapper for `CommonCrypto`'s `CCDigestCtx` struct.
 
-use commoncrypto_sys::{CCDigestCreate, CCDigestCtx, CCDigestDestroy, CCDigestFinal,
-                       CCDigestGetOutputSizeFromRef, CCDigestReset, CCDigestUpdate};
+use commoncrypto_sys::{
+    CCDigestCreate, CCDigestCtx, CCDigestDestroy, CCDigestFinal, CCDigestGetOutputSizeFromRef,
+    CCDigestReset, CCDigestUpdate,
+};
 use std::io;
 
 pub use commoncrypto_sys::CCDigestAlgorithm;
 
 const MAX_DIGEST_SIZE: usize = 64;
 
-macro_rules! err_from_ccdigest_retval{
+macro_rules! err_from_ccdigest_retval {
     ($func_name: expr, $val: expr) => {
-        Err(io::Error::new(io::ErrorKind::Other,
-                           format!("{} returned nonzero: {}", $func_name, $val)))
-    }
+        Err(io::Error::new(
+            io::ErrorKind::Other,
+            format!("{} returned nonzero: {}", $func_name, $val),
+        ))
+    };
 }
 
 #[derive(PartialEq, Copy, Clone, Debug)]

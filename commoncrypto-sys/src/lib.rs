@@ -85,7 +85,7 @@ macro_rules! cc_sha2_struct {
             hash: [$ty; 8],
             wbuf: [$ty; 16],
         }
-    }
+    };
 }
 
 cc_sha2_struct!(CC_SHA256_CTX, u32);
