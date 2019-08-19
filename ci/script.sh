@@ -6,9 +6,9 @@
 run_rustfmt() {
     local changed_rust_files
     if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
-        changed_rust_files="$(git diff --name-only "$TRAVIS_COMMIT_RANGE" . | grep \.rs$)"
+        changed_rust_files="$(git diff --name-only "$TRAVIS_COMMIT_RANGE" . | grep \.rs$; true)"
     else
-        changed_rust_files="$(git show --format= --name-only "$TRAVIS_COMMIT_RANGE" . | sort -u | grep \.rs$)"
+        changed_rust_files="$(git show --format= --name-only "$TRAVIS_COMMIT_RANGE" . | gsort -u | grep \.rs$; true)"
     fi
 
     if [[ -n "$changed_rust_files" ]]; then
