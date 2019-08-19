@@ -8,6 +8,8 @@ repository = "https://github.com/malept/rust-commoncrypto"
 keywords = ["crypto", "hash", "digest", "osx", "commoncrypto"]
 categories = ["cryptography", "external-ffi-bindings", "os::macos-apis"]
 license = "MIT"
+
+[badges]
 travis-ci = { repository = "malept/rust-commoncrypto" }
 
 [dev-dependencies]
