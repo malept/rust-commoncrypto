@@ -10,13 +10,8 @@ categories = ["cryptography", "external-ffi-bindings", "os::macos-apis"]
 license = "MIT"
 travis-ci = { repository = "malept/rust-commoncrypto" }
 
-[features]
-lint = ["clippy"]
-
 [dependencies]
 libc = "0.2"
-
-clippy = { version = "0.0", optional = true }
 
 [dev-dependencies]
 hex = "0.3"
