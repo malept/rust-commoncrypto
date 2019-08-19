@@ -34,8 +34,11 @@ macro_rules! err_from_cckeyderivationpbkdf_retval {
             _ => io::ErrorKind::Other,
         };
 
-        Err(io::Error::new(kind, format!("{} returned nonzero: {}", $func_name, $val)))
-        }}
+        Err(io::Error::new(
+            kind,
+            format!("{} returned nonzero: {}", $func_name, $val),
+        ))
+    }};
 }
 
 /// Derive a key from a password or passphrase and a salt
