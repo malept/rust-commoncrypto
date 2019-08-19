@@ -17,10 +17,19 @@ run_rustfmt() {
     echo "Completed rustfmt"
 }
 
-cargo test --all
-if test "$TRAVIS_RUST_VERSION" = "stable" -a "$TRAVIS_OSX_IMAGE" = "xcode11"; then
+if test "$TARGET" = "all-style-docs"; then
     cargo doc --all
 
     run_rustfmt
     cargo clippy --all -- --allow clippy::pedantic
+else
+    cross build --target $TARGET
+    cross build --target $TARGET --release
+
+    if [ ! -z $DISABLE_TESTS ]; then
+        return
+    fi
+
+    cross test --target $TARGET
+    cross test --target $TARGET --release
 fi
