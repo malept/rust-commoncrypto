@@ -1,4 +1,4 @@
-// Copyright (c) 2016, 2017 Mark Lee
+// Copyright (c) 2016, 2017, 2019 Mark Lee
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -22,9 +22,7 @@
 
 #![warn(missing_docs)]
 
-extern crate libc;
-
-use libc::{c_int, c_uint};
+use std::os::raw::{c_int, c_uint};
 
 /// Total number of operations.
 const MD5_CBLOCK: usize = 64;

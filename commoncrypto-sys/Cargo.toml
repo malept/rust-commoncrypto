@@ -10,8 +10,5 @@ categories = ["cryptography", "external-ffi-bindings", "os::macos-apis"]
 license = "MIT"
 travis-ci = { repository = "malept/rust-commoncrypto" }
 
-[dependencies]
-libc = "0.2"
-
 [dev-dependencies]
 hex = "0.3"
