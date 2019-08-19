@@ -18,7 +18,7 @@ run_rustfmt() {
 }
 
 cargo test --all
-if test "$TRAVIS_RUST_VERSION" = "stable"; then
+if test "$TRAVIS_RUST_VERSION" = "stable" -a "$TRAVIS_OSX_IMAGE" = "xcode11"; then
     cargo doc --all
 
     run_rustfmt
