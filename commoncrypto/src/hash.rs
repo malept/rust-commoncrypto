@@ -61,7 +61,7 @@ impl Hasher {
             ctx = CCDigestCreate(algorithm);
         }
         Hasher {
-            ctx: ctx,
+            ctx,
             state: State::Reset,
         }
     }
