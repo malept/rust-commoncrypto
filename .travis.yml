@@ -1,32 +1,44 @@
 language: rust
-
 os: osx
-osx_image: xcode7.3 # 10.11
+cache: cargo
 
-rust:
-- stable
-- beta
-- nightly
-
-cache:
-  cargo: true
+jobs:
+  include:
+    # rustdoc/rustfmt/clippy
+    - stage: style-docs
+      name: "Docs/Formatting/Lints"
+      env: TARGET=all-style-docs
+    - stage: compile-test
+      osx_image: xcode11 # 10.14
+    - osx_image: xcode11 # 10.14
+      rust: beta
+    - osx_image: xcode11 # 10.14
+      rust: nightly
+    - osx_image: xcode8 # 10.11
+    - osx_image: xcode9.2 # 10.12
+    - osx_image: xcode10.1 # 10.13
 
 matrix:
-  include:
-    - osx_image: xcode6.4 # 10.10
-      rust: stable
-    - osx_image: xcode8.2 # 10.12
-      rust: stable
   allow_failures:
   - rust: nightly
+
+branches:
+  only:
+  - master
+  - /^v\d+\.\d+\.\d+/
+
+stages:
+- style-docs
+- compile-test
 
 before_script: ci/before_script.sh
 script: ci/script.sh
 after_success:
-- if test "$TRAVIS_RUST_VERSION" = "stable"; then cargo coveralls --all --exclude-pattern=/tests/; fi
+- if test "$TRAVIS_RUST_VERSION" = "stable" -a "$TRAVIS_OSX_IMAGE" = "xcode11"; then cargo coveralls --all --exclude-pattern=/tests/; fi
 
 env:
   global:
   - PATH=$HOME/.cargo/bin:$PATH
+  - TARGET=x86_64-apple-darwin
   # encrypted github token for doc upload
   - secure: euCXRgSy9cmwmYqigfnM9EQq839onxlWYfVsQf5mw8ERIrKYyVAP1Ca3YVc6IE4klLFDuJIiK7fWCIOAQwTYB5EEc8JigSTum70C4Vmb8U0Ms7L4V2eZ9u45UGR1nf3G2rU4Oo/FxctioAMG9T41J/3l86FgKJEWffQUJqHamknW8l05ZuIkp0qilpUZqTji9eZRX91NidCmMpvJYPBKru40Z7piOLtnpb/r/Ix/iqPCMste5US8KWKtwZoHcJC/Ofu95sN06aoGG37JGn9z4rICSG9v2NcRzMaQ3B4goTRWQ/8wgNh0mt+0MR213Ay7HTjjk8TKKsUB9mNFTyvVoWYAO5vC+LNZLzzogWF2IbhI6If/CcdpHw1Rs9wxs310YlzSPgU1ZON0gRVQj9AYHK436PIPwuBO+pmsAh9ap1ALOnICa5lBvNudNlTL8gOZcYM7EpglBgGsBoAONZWoKv0+Ymm4MFDgVwi8C5oEfz3sdievpfPpl42BWmHsPb99mqZaGxQ76pitTFOYATmgmli7IENq8s9tDur6j0OX6hTR4o41BWQLGTruQG8pexWQ5r3ZryxGjRXAP5xwEz+5zzkQp3RysmcSUCS/lKPPWt7VuRGPdlM49It7uyBD/sPe2fBesEMqvcK94QMNL/xyxkkMcTVnzqSpX81qwEYcJpY=
