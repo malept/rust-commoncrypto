@@ -9,9 +9,6 @@ keywords = ["crypto", "hash", "digest", "osx", "commoncrypto"]
 categories = ["cryptography", "api-bindings", "os::macos-apis"]
 license = "MIT"
 
-[features]
-# default = ["ios-compat"]
-
 [badges]
 travis-ci = { repository = "malept/rust-commoncrypto" }
 
@@ -20,3 +17,6 @@ commoncrypto-sys = { version = "0.2.0", path = "../commoncrypto-sys" }
 
 [dev-dependencies]
 hex = "0.3"
+
+[features]
+# default = ["ios-compat"]
