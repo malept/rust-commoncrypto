@@ -95,18 +95,24 @@ cc_sha2_struct!(CC_SHA512_CTX, u64);
 pub enum CCDigestAlgorithm {
     /// No digest algorithm
     kCCDigestNone = 0,
+    #[cfg(target_os = "macos")]
     /// MD2
     kCCDigestMD2 = 1,
+    #[cfg(target_os = "macos")]
     /// MD4
     kCCDigestMD4 = 2,
     /// MD5
     kCCDigestMD5 = 3,
+    #[cfg(target_os = "macos")]
     /// RIPEMD-128
     kCCDigestRMD128 = 4,
+    #[cfg(target_os = "macos")]
     /// RIPEMD-160
     kCCDigestRMD160 = 5,
+    #[cfg(target_os = "macos")]
     /// RIPEMD-256
     kCCDigestRMD256 = 6,
+    #[cfg(target_os = "macos")]
     /// RIPEMD-320
     kCCDigestRMD320 = 7,
     /// SHA1
@@ -197,6 +203,9 @@ extern "C" {
     pub fn CC_SHA512_Update(ctx: *mut CC_SHA512_CTX, data: *const u8, n: usize) -> c_int;
     /// Generates SHA512 hash. See `man 3cc CC_SHA` for details.
     pub fn CC_SHA512_Final(md: *mut u8, ctx: *mut CC_SHA512_CTX) -> c_int;
+}
+#[cfg(target_os = "macos")]
+extern "C" {
     /// Generic digest hasher.
     pub fn CCDigest(
         algorithm: CCDigestAlgorithm,

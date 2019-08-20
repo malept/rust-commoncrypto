@@ -17,3 +17,6 @@ commoncrypto-sys = { version = "0.2.0", path = "../commoncrypto-sys" }
 
 [dev-dependencies]
 hex = "0.3"
+
+[features]
+# default = ["ios-compat"]
