@@ -26,10 +26,8 @@ else
     cross build --target $TARGET
     cross build --target $TARGET --release
 
-    if [ ! -z $DISABLE_TESTS ]; then
-        return
+    if [ -z $DISABLE_TESTS ]; then
+        cross test --target $TARGET
+        cross test --target $TARGET --release
     fi
-
-    cross test --target $TARGET
-    cross test --target $TARGET --release
 fi
