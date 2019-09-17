@@ -13,4 +13,4 @@ license = "MIT"
 travis-ci = { repository = "malept/rust-commoncrypto" }
 
 [dev-dependencies]
-hex = "0.3"
+hex = "0.4"
