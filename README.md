@@ -1,6 +1,6 @@
 # `rust-commoncrypto`
 
-[![CI Status](https://travis-ci.org/malept/rust-commoncrypto.svg?branch=master)](https://travis-ci.org/malept/rust-commoncrypto)
+[![CI Status](https://travis-ci.org/malept/rust-commoncrypto.svg?branch=main)](https://travis-ci.org/malept/rust-commoncrypto)
 
 Rust FFI bindings and idiomatic wrappers for Mac OS X's CommonCrypto library.
 
@@ -18,7 +18,7 @@ Add `commoncrypto` to your project's `Cargo.toml`. For more details, consult the
 * [`commoncrypto-sys`](https://docs.rs/commoncrypto-sys)
 * [`commoncrypto`](https://docs.rs/commoncrypto)
 
-## [Contributing](https://github.com/malept/rust-commoncrypto/blob/master/CONTRIBUTING.md)
+## [Contributing](https://github.com/malept/rust-commoncrypto/blob/main/CONTRIBUTING.md)
 
 ## Legal
 

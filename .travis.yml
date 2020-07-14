@@ -24,7 +24,7 @@ matrix:
 
 branches:
   only:
-  - master
+  - main
   - /^v\d+\.\d+\.\d+/
 
 stages:

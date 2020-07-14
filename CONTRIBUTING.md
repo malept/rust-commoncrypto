@@ -42,7 +42,7 @@ etc.:
 * Please **do not** bump the version number in your pull requests, the maintainers will do that.
   Feel free to indicate whether the changes require a major, minor, or patch version bump, as
   prescribed by the [semantic versioning specification](http://semver.org/).
-* Please make sure your commits are rebased onto the latest commit in the master branch, and that
+* Please make sure your commits are rebased onto the latest commit in the main branch, and that
   you limit/squash the number of commits created to a "feature"-level. For instance:
 
 bad:
